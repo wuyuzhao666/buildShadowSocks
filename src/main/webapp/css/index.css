@@ -1,0 +1,17 @@
+#contain{
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+body {
+    background:url(https://source.unsplash.com/random/1600x900);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position:50% 50%;
+}
+#contain2{
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+}

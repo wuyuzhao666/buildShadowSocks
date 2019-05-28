@@ -1,0 +1,55 @@
+body{
+    background: url(../img/photo-1557877086-10e2c0332f98.jpg);
+    /*animation-name:myfirst;*/
+    /*animation-duration:24s;*/
+    /*!*变换时间*!*/
+    /*animation-delay:0s;*/
+    /*!*动画开始时间*!*/
+    /*animation-iteration-count:infinite;*/
+    /*!*下一周期循环播放*!*/
+    /*animation-play-state:running;*/
+    /*!*动画开始运行*!*/
+    font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+}
+/*@keyframes myfirst*/
+/*{*/
+    /*0%   {background:url(../img/photo-1557877086-10e2c0332f98.jpg);}*/
+    /*34%  {background:url(../img/photo-1557877086-74ba3b7a0949.jpg);}*/
+    /*67%  {background:url(../img/photo-1558632218-4d2bc591f898.jpg);}*/
+    /*100% {background:url(../img/photo-1558715066-9b66d68bdd3a.jpg);}*/
+/*}*/
+.form{background: rgba(255,255,255,0.2);width:400px;margin:120px auto;}
+/*阴影*/
+.fa{display: inline-block;top: 2px;left: 24px;position: relative;color: #ccc;}
+input[type="text"],input[type="password"]{padding-left:26px;}
+.checkbox{padding-left:21px;}
+.result{
+    width: 200px;
+    height: 20px;
+}
+.load{
+
+
+    display: none;
+    position: absolute;
+    top: 287px;
+    left: 768px;
+}
+.form-group{
+    height: 40px;
+}
+
+
+.fontt{
+    padding: 0px;margin: 0px;width: 80px;
+    float: left;
+}
+.result{
+     width: 280px;
+    height: 30px;
+ }
+.form-control{
+    float: left;
+    width: 200px;
+    clear: right;
+}
