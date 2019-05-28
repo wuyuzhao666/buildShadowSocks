@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +46,6 @@ public class SSHController {
     private String BOOT_SHELL_FILE_NAME;
     @Value("${BOOT_SHELL_REMOTE_DIR}")
     private String BOOT_SHELL_REMOTE_DIR;
-
 
     @Autowired
     private ConnectLinuxCommand connectLinuxCommand;
@@ -98,15 +98,15 @@ public class SSHController {
     }
     @RequestMapping("/submit")
     @ResponseBody
-    public String submit(HttpServletRequest request,
-                         String ip,String userName,String password,String port,String loginPassword,
+    public List submit(HttpServletRequest request,
+                         String ip,String userName, String passWord,String port,String loginPassword,
                          @RequestParam(value = "file",required = false) MultipartFile file){
             Connection conn;
         System.out.println(port);
         System.out.println(loginPassword);
-        String s = "";
+        List list = new ArrayList();
 //        if(conn == null){
-        RemoteConnect remoteConnect = new RemoteConnect(ip, userName, password);
+        RemoteConnect remoteConnect = new RemoteConnect(ip, userName, passWord);
         if (file != null){
                 String realPath = request.getServletContext().getRealPath("/cache");
                 System.out.println(realPath);
@@ -115,7 +115,7 @@ public class SSHController {
                 if(!file1.getParentFile().exists()){
                     file1.getParentFile().mkdir();
                 }
-                System.out.println(ip + userName + password);
+                System.out.println(ip + userName + passWord);
 
                 try {
                     file.transferTo(file1);
@@ -123,33 +123,37 @@ public class SSHController {
                     conn = connectLinuxCommand.loginByFileKey(remoteConnect, file1, null);
 //                    Boolean aBoolean = connectLinuxCommand.login(remoteConnect);
                     if(conn == null){
-                        return "登陆失败";
+                        list.add("登陆失败");
+                        return list;
                     }
 
-                    s = excuteAll(conn, port, loginPassword);
+                    list = excuteAll(conn, port, loginPassword);
                 } catch (IOException e) {
                     String message = e.getMessage();
                     e.printStackTrace();
-                    return "fail:" + message;
+                    list.add("fail:" + message);
+                    return list;
                 }
-                return "s";
+                return list;
             }else {
             conn = connectLinuxCommand.login(remoteConnect);
             if (conn==null){
-
-                return "连接出错，请重试";
+                list.add("连接出错，请重试");
+                return list;
             }
-            s = excuteAll(conn, port, loginPassword);
+            list = excuteAll(conn, port, loginPassword);
 
         }
 
-        return "s";
+        return list;
     }
-    private String excuteAll(Connection conn,String port,String loginPassword){
+    private List excuteAll(Connection conn,String port,String loginPassword){
+        List list = new ArrayList();
         List installCommand = excuteService.getInstallCommand();
         for (Object command:
                 installCommand) {
-            connectLinuxCommand.execute((String) command, conn);
+            String execute = connectLinuxCommand.execute((String) command, conn);
+            list.add(execute);
         }
 
         //本地新建文件
@@ -178,9 +182,10 @@ public class SSHController {
 //                "[Install]\n" +
 //                "WantedBy=multi-user.target";
 //        File bootShellFile = excuteService.createFile(bootShell, REMOTE_ADDR, BOOT_SHELL_FILE_NAME);
-//        connectLinuxCommand.scpPut(conn,BOOT_SHELL_REMOTE_DIR,bootShellFile);
+//        connectLinuxCommand.scpPut(conn,BOOT_SHELL_REMOTE_DIR,bootShellFile);     li
+        list.add(execute);
 
         connectLinuxCommand.shutdown(conn);
-        return execute;
+        return list;
     }
 }

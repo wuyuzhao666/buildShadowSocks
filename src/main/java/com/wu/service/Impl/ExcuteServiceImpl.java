@@ -36,6 +36,11 @@ public class ExcuteServiceImpl implements ExcuteService {
     @Value("${INSTALL_SS_FORTH}")
     private String INSTALL_SS_FORTH;
 
+    @Value("${INSTALL_SS_F2}")
+    private String INSTALL_SS_F2;
+
+
+
     @Override
     public File createFile(String writeString, String localAddr, String fileName) {
         File shadowsocksJson = new File(localAddr, fileName);
@@ -61,6 +66,7 @@ public class ExcuteServiceImpl implements ExcuteService {
         List<String> list = new ArrayList();
 
         list.add(INSTALL_SS_FIREST);
+        list.add(INSTALL_SS_F2);
         list.add(INSTALL_SS_SECOND);
         list.add(INSTALL_SS_THIRD);
         list.add(INSTALL_SS_FORTH);

@@ -17,7 +17,7 @@ function addUploadAttachment1(formData,url){
             $('.load').show();
         },
         success : function(data) {
-            if (url === "/ssh/test"){
+            if (url === "/buildss-1.0-SNAPSHOT/ssh/test"){
                 $(".result").text(data);
             } else {
                 $(".result2").text(data);
@@ -58,7 +58,7 @@ function addUploadAttachment2(ip,userName,password,port,loginPassword,url){
             $('.load').show();
         },
         success : function(data) {
-            if (url === "/ssh/test"){
+            if (url === "/buildss-1.0-SNAPSHOT/ssh/test"){
                 $(".result").text(data);
             } else {
                 $(".result2").text(data);
@@ -126,7 +126,7 @@ $(document).ready(function () {
             addUploadAttachment1(formData,"/buildss-1.0-SNAPSHOT/ssh/submit");
         }else {
 
-            addUploadAttachment1(ip,userName,password,port,loginPassword,"/buildss-1.0-SNAPSHOT/ssh/submit");
+            addUploadAttachment2(ip,userName,password,port,loginPassword,"/buildss-1.0-SNAPSHOT/ssh/submit");
         }
 
     })
