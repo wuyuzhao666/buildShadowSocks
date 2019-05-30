@@ -171,7 +171,7 @@ public class SSHController {
         connectLinuxCommand.scpPut(conn,REMOTE_ADDR,shadowsocksJson);
         //使其自启动?各系统版本不同，自启动方式不同
         String which_ssserver = connectLinuxCommand.execute("which ssserver", conn);
-        String execute = connectLinuxCommand.execute(which_ssserver + " -c " + REMOTE_ADDR + File.separator + SS_FILE_NAME + " -d start", conn);
+        String execute = connectLinuxCommand.execute(which_ssserver + " -c " + REMOTE_ADDR + File.separator + SS_FILE_NAME + " &", conn);
 //        String bootShell = "[Unit]\n" +
 //                "Description=Shadowsocks\n" +
 //                "\n" +
@@ -183,6 +183,7 @@ public class SSHController {
 //                "WantedBy=multi-user.target";
 //        File bootShellFile = excuteService.createFile(bootShell, REMOTE_ADDR, BOOT_SHELL_FILE_NAME);
 //        connectLinuxCommand.scpPut(conn,BOOT_SHELL_REMOTE_DIR,bootShellFile);     li
+        System.out.println(execute);
         list.add(execute);
 
         connectLinuxCommand.shutdown(conn);
